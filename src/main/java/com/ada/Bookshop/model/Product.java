@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "products")
+@Table(name = "books")
 @Getter @Setter
 public class Product {
 
@@ -20,5 +20,5 @@ public class Product {
     private Double price;
 
     @ManyToOne()
-    private TypeProduct type;
+    private TypeProduct bookSubject;
 }

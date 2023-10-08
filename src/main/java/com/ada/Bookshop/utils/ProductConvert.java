@@ -10,29 +10,29 @@ import java.util.List;
 
 public class ProductConvert {
 
-    public static Product toEntity(ProductRequest productRequest, TypeProduct typeProduct){
-        Product product = new Product();
-        product.setName(productRequest.getName());
-        product.setPrice(productRequest.getPrice());
-        product.setType(typeProduct);
-        return product;
+    public static Product toEntity(ProductRequest bookRequest, TypeProduct bookSubject){
+        Product book = new Product();
+        book.setName(bookRequest.getName());
+        book.setPrice(bookRequest.getPrice());
+        book.setBookSubject(bookSubject);
+        return book;
     }
 
-    public static ProductResponse toResponse(Product product){
-        ProductResponse productResponse = new ProductResponse();
-        productResponse.setId(product.getId());
-        productResponse.setName(product.getName());
-        productResponse.setPrice(product.getPrice());
-        productResponse.setType(TypeProductConvert.toResponse(product.getType()));
-        return productResponse;
+    public static ProductResponse toResponse(Product book){
+        ProductResponse bookResponse = new ProductResponse();
+        bookResponse.setId(book.getId());
+        bookResponse.setName(book.getName());
+        bookResponse.setPrice(book.getPrice());
+        bookResponse.setBookSubject(TypeProductConvert.toResponse(book.getBookSubject()));
+        return bookResponse;
     }
 
-    public static List<ProductResponse> toResponseList(List<Product> products){
-        List<ProductResponse> productResponses = new ArrayList<>();
-        for(Product product: products){
-            productResponses.add(toResponse(product));
+    public static List<ProductResponse> toResponseList(List<Product> books){
+        List<ProductResponse> bookResponses = new ArrayList<>();
+        for(Product book : books){
+            bookResponses.add(toResponse(book));
         }
 
-        return productResponses;
+        return bookResponses;
     }
 }

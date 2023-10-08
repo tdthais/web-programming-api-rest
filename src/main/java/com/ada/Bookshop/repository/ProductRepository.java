@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
-    @Query("SELECT p FROM Product p WHERE p.type.id = :type")
-    List<Product> findProductByType(@Param("type") Integer typeProduct);
+    @Query("SELECT p FROM Product p WHERE p.bookSubject.id = :type")
+    List<Product> findProductByType(@Param("type") Integer bookSubject);
 }

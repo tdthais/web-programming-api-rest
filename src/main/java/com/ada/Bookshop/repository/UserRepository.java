@@ -13,7 +13,7 @@ import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, Integer>, QuerydslPredicateExecutor<User> {
     @Override
-    @Query(value = "SELECT * FROM USERS WHERE ACTIVE = TRUE", nativeQuery = true)
+    @Query(value = "SELECT * FROM CLIENTS WHERE ACTIVE = TRUE", nativeQuery = true)
     Page<User> findAll(Pageable pageable);
 
     List<User> findAllByName(String name);

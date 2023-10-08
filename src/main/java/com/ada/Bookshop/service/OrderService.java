@@ -2,14 +2,17 @@ package com.ada.Bookshop.service;
 
 import com.ada.Bookshop.controller.dto.OrderRequest;
 import com.ada.Bookshop.controller.dto.OrderResponse;
+import com.ada.Bookshop.controller.dto.UserRequest;
+import com.ada.Bookshop.controller.dto.UserResponse;
+import com.ada.Bookshop.model.User;
 import com.ada.Bookshop.model.Order;
 import com.ada.Bookshop.model.Product;
 //import com.ada.AccessoriesMarketplace.model.QOrder;
-import com.ada.Bookshop.model.User;
 import com.ada.Bookshop.repository.OrderRepository;
 import com.ada.Bookshop.repository.ProductRepository;
 import com.ada.Bookshop.repository.UserRepository;
 import com.ada.Bookshop.utils.OrderConvert;
+import com.ada.Bookshop.utils.UserConvert;
 import com.querydsl.core.types.Predicate;
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +34,7 @@ public class OrderService {
     UserRepository userRepository;
 
     @Autowired
-    ProductRepository productRepository;
+    ProductRepository bookRepository;
 
     @Autowired
     EntityManager entityManager;
@@ -39,17 +42,16 @@ public class OrderService {
     public OrderResponse saveOrder(OrderRequest orderRequest){
         User user = userRepository.findById(orderRequest.getUserId()).get();
 
-        List<Product> products = new ArrayList<>();
+        List<Product> books = new ArrayList<>();
 
-        List<Integer> productsId = orderRequest.getProductsIds();
+        List<Integer> booksId = orderRequest.getBooksIds();
 
-        for(Integer id: productsId){
-            Product product = productRepository.findById(id).get();
-            products.add(product);
+        for(Integer id : booksId){
+            Product book = bookRepository.findById(id).get();
+            books.add(book);
         }
 
-        Order order = OrderConvert.toEntity(orderRequest, user, products);
-
+        Order order = OrderConvert.toEntity(orderRequest, user, books);
 
         return OrderConvert.toResponse(orderRepository.save(order));
     }
@@ -67,8 +69,8 @@ public class OrderService {
         return OrderConvert.toResponseList(orderRepository.findAllByUser(userId));
     }
 
-    public List<OrderResponse> getAllByProduct(Integer productId){
-        return OrderConvert.toResponseList(orderRepository.findAllByProduct(productId));
+    public List<OrderResponse> getAllByProduct(Integer bookId){
+        return OrderConvert.toResponseList(orderRepository.findAllByProduct(bookId));
     }
 //    public List<OrderResponse> getAllByPrice(Double minValue, Double maxValue){
 //        JPAQuery<Order> query = new JPAQuery<>(entityManager);
@@ -77,4 +79,23 @@ public class OrderService {
 //        List<Order> orders = query.from(qOrder).where(qOrder.totalPrice.between(minValue, maxValue)).fetch();
 //        return OrderConvert.toResponseList(orders);
 //    }
+
+    public OrderResponse updateOrder(Integer id, OrderRequest orderRequest){
+        User user = userRepository.findById(orderRequest.getUserId()).get();
+        List<Product> books = new ArrayList<>();
+        List<Integer> booksId = orderRequest.getBooksIds();
+
+        for(Integer bookId : booksId){
+            Product book = bookRepository.findById(bookId).get();
+            books.add(book);
+        }
+
+        Order order = OrderConvert.toEntity(orderRequest, user, books);
+        order.setId(id);
+        return OrderConvert.toResponse(orderRepository.save(order));
+    }
+
+
+
+
 }

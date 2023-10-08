@@ -2,6 +2,8 @@ package com.ada.Bookshop.controller;
 
 import com.ada.Bookshop.controller.dto.OrderRequest;
 import com.ada.Bookshop.controller.dto.OrderResponse;
+import com.ada.Bookshop.controller.dto.UserRequest;
+import com.ada.Bookshop.controller.dto.UserResponse;
 import com.ada.Bookshop.model.Order;
 import com.ada.Bookshop.service.OrderService;
 import com.querydsl.core.types.Predicate;
@@ -37,6 +39,14 @@ public class OrderController {
        return ResponseEntity.ok(orderService.getAllOrders(predicate, pageable));
     }
 
+
+    @PutMapping("/{id}")
+    public ResponseEntity<OrderResponse> updateOrder(
+            @PathVariable Integer id,
+            @RequestBody OrderRequest orderRequest
+    ){
+        return  ResponseEntity.ok(orderService.updateOrder(id, orderRequest));
+    }
 
 
 }

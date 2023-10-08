@@ -12,23 +12,23 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/product")
+@RequestMapping("/book")
 public class ProductController {
 
     @Autowired
-    ProductService productService;
+    ProductService bookService;
 
     @GetMapping
     public ResponseEntity<List<ProductResponse>> getAllProduct(
-            @RequestParam(name = "typeProduct", required = false) Integer typeProduct
+            @RequestParam(name = "bookSubject", required = false) Integer bookSubject
     ){
-        return ResponseEntity.ok(productService.getAllProduct(typeProduct));
+        return ResponseEntity.ok(bookService.getAllProduct(bookSubject));
     }
 
     @PostMapping
-    public ResponseEntity<ProductResponse> saveProduct(@RequestBody ProductRequest productRequest){
-        ProductResponse productResponse =  productService.saveProduct(productRequest);
+    public ResponseEntity<ProductResponse> saveProduct(@RequestBody ProductRequest bookRequest){
+        ProductResponse bookResponse =  bookService.saveProduct(bookRequest);
 
-        return ResponseEntity.created(URI.create("/product/"+productResponse.getId())).body(productResponse);
+        return ResponseEntity.created(URI.create("/book/"+ bookResponse.getId())).body(bookResponse);
     }
 }

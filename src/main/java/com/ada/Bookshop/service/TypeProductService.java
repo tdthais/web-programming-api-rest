@@ -14,20 +14,20 @@ import java.util.List;
 public class TypeProductService {
 
     @Autowired
-    TypeProductRepository typeProductRepository;
+    TypeProductRepository bookSubjectRepository;
 
     public List<TypeProductResponse> getAllTypeProducts(){
-        return TypeProductConvert.toResponseList(typeProductRepository.findAll());
+        return TypeProductConvert.toResponseList(bookSubjectRepository.findAll());
     }
 
-    public TypeProductResponse saveTypeProduct(TypeProductRequest typeProductRequest){
-        TypeProduct typeProduct = typeProductRepository.save(
-                TypeProductConvert.toEntity(typeProductRequest)
+    public TypeProductResponse saveTypeProduct(TypeProductRequest bookSubjectRequest){
+        TypeProduct bookSubject = bookSubjectRepository.save(
+                TypeProductConvert.toEntity(bookSubjectRequest)
         );
-        return TypeProductConvert.toResponse(typeProduct);
+        return TypeProductConvert.toResponse(bookSubject);
     }
 
     public void deleteTypeProduct(Integer id){
-        typeProductRepository.deleteById(id);
+        bookSubjectRepository.deleteById(id);
     }
 }

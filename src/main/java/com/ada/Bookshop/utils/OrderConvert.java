@@ -2,9 +2,9 @@ package com.ada.Bookshop.utils;
 
 import com.ada.Bookshop.controller.dto.OrderRequest;
 import com.ada.Bookshop.controller.dto.OrderResponse;
+import com.ada.Bookshop.model.User;
 import com.ada.Bookshop.model.Order;
 import com.ada.Bookshop.model.Product;
-import com.ada.Bookshop.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 
@@ -13,11 +13,11 @@ import java.util.List;
 
 public class OrderConvert {
 
-    public static Order toEntity(OrderRequest orderRequest, User user, List<Product> products){
+    public static Order toEntity(OrderRequest orderRequest, User user, List<Product> books){
         Order order = new Order();
         order.setTotalPrice(orderRequest.getTotalPrice());
         order.setUser(user);
-        order.setProducts(products);
+        order.setBooks(books);
         return order;
     }
 
@@ -25,7 +25,7 @@ public class OrderConvert {
         OrderResponse ordersResponse = new OrderResponse();
         ordersResponse.setId(order.getId());
         ordersResponse.setUser(order.getUser());
-        ordersResponse.setProducts(order.getProducts());
+        ordersResponse.setBooks(order.getBooks());
         ordersResponse.setTotalPrice(order.getTotalPrice());
         return ordersResponse;
     }

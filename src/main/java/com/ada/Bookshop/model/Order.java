@@ -19,6 +19,6 @@ public class Order {
     private User user;
 
     @ManyToMany()
-    private List<Product> products;
+    private List<Product> books;
 
 }

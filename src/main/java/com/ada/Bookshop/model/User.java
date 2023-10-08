@@ -17,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter @Setter
 @Entity
-@Table(name = "users")
+@Table(name = "clients")
 @Where(clause = "active is true")
 public class User implements UserDetails {
 

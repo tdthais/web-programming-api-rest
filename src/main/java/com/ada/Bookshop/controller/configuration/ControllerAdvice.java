@@ -26,9 +26,9 @@ public class ControllerAdvice {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public List<ValidationError> handler(MethodArgumentNotValidException exception){
         List<ValidationError> errors = new ArrayList<>();
-        List<FieldError> fieldErros = exception.getBindingResult().getFieldErrors();
+        List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
 
-        fieldErros.forEach( e -> {
+        fieldErrors.forEach( e -> {
             String message = messageSource.getMessage(e, LocaleContextHolder.getLocale());
             ValidationError validationError =  new ValidationError(e.getField(), message);
             errors.add(validationError);

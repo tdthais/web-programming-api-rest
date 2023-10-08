@@ -9,25 +9,25 @@ import java.util.List;
 
 public class TypeProductConvert {
 
-    public static TypeProduct toEntity(TypeProductRequest typeProductRequest){
-        TypeProduct typeProduct = new TypeProduct();
-        typeProduct.setName(typeProductRequest.getName());
-        return typeProduct;
+    public static TypeProduct toEntity(TypeProductRequest bookSubjectRequest){
+        TypeProduct bookSubject = new TypeProduct();
+        bookSubject.setName(bookSubjectRequest.getName());
+        return bookSubject;
     }
 
-    public static TypeProductResponse toResponse(TypeProduct typeProduct){
-        TypeProductResponse typeProductResponse =  new TypeProductResponse();
-        typeProductResponse.setId(typeProduct.getId());
-        typeProductResponse.setName(typeProduct.getName());
-        return typeProductResponse;
+    public static TypeProductResponse toResponse(TypeProduct bookSubject){
+        TypeProductResponse bookSubjectResponse =  new TypeProductResponse();
+        bookSubjectResponse.setId(bookSubject.getId());
+        bookSubjectResponse.setName(bookSubject.getName());
+        return bookSubjectResponse;
     }
 
-    public static List<TypeProductResponse> toResponseList(List<TypeProduct> typesProducts){
-        List<TypeProductResponse> typesProductResponses = new ArrayList<>();
-        for(TypeProduct typeProduct: typesProducts){
-            typesProductResponses.add(toResponse(typeProduct));
+    public static List<TypeProductResponse> toResponseList(List<TypeProduct> bookSubjects){
+        List<TypeProductResponse> bookSubjectResponses = new ArrayList<>();
+        for(TypeProduct bookSubject : bookSubjects){
+            bookSubjectResponses.add(toResponse(bookSubject));
         }
 
-        return typesProductResponses;
+        return bookSubjectResponses;
     }
 }

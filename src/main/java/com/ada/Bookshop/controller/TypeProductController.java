@@ -11,27 +11,27 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/type-product")
+@RequestMapping("/book-subject")
 public class TypeProductController {
 
     @Autowired
-    TypeProductService typeProductService;
+    TypeProductService bookSubjectService;
 
     @GetMapping
     public ResponseEntity<List<TypeProductResponse>>getAllTypeProduct(){
-        return ResponseEntity.ok(typeProductService.getAllTypeProducts());
+        return ResponseEntity.ok(bookSubjectService.getAllTypeProducts());
     }
 
     @PostMapping
-    public ResponseEntity<TypeProductResponse> saveTypeProduct(@RequestBody TypeProductRequest typeProductRequest){
-        TypeProductResponse typeProductResponse = typeProductService.saveTypeProduct(typeProductRequest);
+    public ResponseEntity<TypeProductResponse> saveTypeProduct(@RequestBody TypeProductRequest bookSubjectRequest){
+        TypeProductResponse bookSubjectResponse = bookSubjectService.saveTypeProduct(bookSubjectRequest);
         return ResponseEntity.created(
-                URI.create("/type-product/"+typeProductResponse.getId())
-        ).body(typeProductResponse);
+                URI.create("/book-subject/"+ bookSubjectResponse.getId())
+        ).body(bookSubjectResponse);
     }
 
     @DeleteMapping("/{id}")
     public void deleteTypeProduct(@PathVariable Integer id){
-        typeProductService.deleteTypeProduct(id);
+        bookSubjectService.deleteTypeProduct(id);
     }
 }

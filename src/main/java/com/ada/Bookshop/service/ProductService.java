@@ -17,25 +17,25 @@ import java.util.List;
 public class ProductService {
 
     @Autowired
-    ProductRepository productRepository;
+    ProductRepository bookRepository;
 
     @Autowired
-    TypeProductRepository typeProductRepository;
+    TypeProductRepository bookSubjectRepository;
 
-    public ProductResponse saveProduct(ProductRequest productRequest){
-        TypeProduct typeProduct = typeProductRepository.findById(productRequest.getTypeId()).get();
-        Product product = ProductConvert.toEntity(productRequest, typeProduct);
-        return  ProductConvert.toResponse(productRepository.save(product));
+    public ProductResponse saveProduct(ProductRequest bookRequest){
+        TypeProduct bookSubject = bookSubjectRepository.findById(bookRequest.getBookSubjectId()).get();
+        Product book = ProductConvert.toEntity(bookRequest, bookSubject);
+        return  ProductConvert.toResponse(bookRepository.save(book));
     }
 
-    public List<ProductResponse> getAllProduct(Integer typeProduct){
-        if(typeProduct != null){
-            return getAllByTypeProduct(typeProduct);
+    public List<ProductResponse> getAllProduct(Integer bookSubject){
+        if(bookSubject != null){
+            return getAllByTypeProduct(bookSubject);
         }
-        return ProductConvert.toResponseList(productRepository.findAll());
+        return ProductConvert.toResponseList(bookRepository.findAll());
     }
 
-    public List<ProductResponse> getAllByTypeProduct(Integer typeProduct){
-        return ProductConvert.toResponseList(productRepository.findProductByType(typeProduct));
+    public List<ProductResponse> getAllByTypeProduct(Integer bookSubject){
+        return ProductConvert.toResponseList(bookRepository.findProductByType(bookSubject));
     }
 }

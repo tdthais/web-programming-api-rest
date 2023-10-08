@@ -8,5 +8,5 @@ import java.util.List;
 public class OrderRequest {
     private Double totalPrice;
     private Integer userId;
-    private List<Integer> productsIds;
+    private List<Integer> booksIds;
 }

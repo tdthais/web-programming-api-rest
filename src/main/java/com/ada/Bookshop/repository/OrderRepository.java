@@ -15,7 +15,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer>, Querydsl
     @Query(value = "SELECT * FROM ORDERS WHERE USER_ID = :userId", nativeQuery = true)
     List<Order> findAllByUser(Integer userId);
 
-    @Query(value = "SELECT order FROM Order order JOIN order.products product WHERE product.id = :productId")
-    List<Order> findAllByProduct(Integer productId);
+    @Query(value = "SELECT order FROM Order order JOIN order.books book WHERE book.id = :bookId")
+    List<Order> findAllByProduct(Integer bookId);
 
 }
