@@ -10,7 +10,7 @@ import java.util.List;
 
 
 @Repository
-public interface OrderRepository extends JpaRepository<Order, Integer>, QuerydslPredicateExecutor<Order> {
+public interface OrderRepository extends JpaRepository<Order, Integer> {
 
     @Query(value = "SELECT * FROM ORDERS WHERE USER_ID = :userId", nativeQuery = true)
     List<Order> findAllByUser(Integer userId);

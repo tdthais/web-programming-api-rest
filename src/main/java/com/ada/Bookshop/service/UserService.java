@@ -55,12 +55,6 @@ public class UserService {
         }
     }
 
-//    public UserResponse getUserByEmail(String email){
-//        QUser qUser = QUser.user;
-//        BooleanExpression booleanExpression =  qUser.email.eq(email);
-//        return UserConvert.toResponse(userRepository.findOne(booleanExpression).get());
-//    }
-
     public List<UserResponse> getAllByName(String name){
         return UserConvert.toResponseList(userRepository.findAllByName(name));
     }

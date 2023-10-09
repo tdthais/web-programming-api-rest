@@ -1,8 +1,6 @@
 package com.ada.Bookshop.controller;
 
-import com.ada.Bookshop.Infra.security.TokenService;
 import com.ada.Bookshop.controller.dto.LoginRequest;
-import com.ada.Bookshop.controller.dto.TokenResponse;
 import com.ada.Bookshop.model.User;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,20 +19,16 @@ public class AuthenticationController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    @Autowired
-    TokenService tokenService;
 
     @PostMapping
     public ResponseEntity login(@RequestBody @Valid LoginRequest loginRequest){
 
-        var autheticate = new UsernamePasswordAuthenticationToken(
+        var authenticate = new UsernamePasswordAuthenticationToken(
                 loginRequest.getEmail(),
                 loginRequest.getPassword()
         );
 
-        var authentication = authenticationManager.authenticate(autheticate);
-        var token = tokenService.tokenGenerate((User) authentication.getPrincipal());
-
-        return ResponseEntity.ok().body(new TokenResponse(token));
+        authenticationManager.authenticate(authenticate);
+        return ResponseEntity.ok().build();
     }
 }

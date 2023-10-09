@@ -6,7 +6,6 @@ import com.ada.Bookshop.controller.dto.UserRequest;
 import com.ada.Bookshop.controller.dto.UserResponse;
 import com.ada.Bookshop.model.Order;
 import com.ada.Bookshop.service.OrderService;
-import com.querydsl.core.types.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/order")
@@ -31,13 +31,12 @@ public class OrderController {
 
 
     @GetMapping
-    public ResponseEntity<Page<OrderResponse>> getOrder(
-            @QuerydslPredicate(root = Order.class) Predicate predicate,
-            Pageable pageable
-
-    ){
-       return ResponseEntity.ok(orderService.getAllOrders(predicate, pageable));
+    public ResponseEntity<List<OrderResponse>> getOrder(
+            @RequestParam(name = "userId", required = false) Integer userId,
+            @RequestParam(name = "bookId", required = false) Integer bookId){
+        return ResponseEntity.ok(orderService.getAllOrders(userId, bookId));
     }
+
 
 
     @PutMapping("/{id}")

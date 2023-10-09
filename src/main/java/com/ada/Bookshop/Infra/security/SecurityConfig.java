@@ -1,7 +1,6 @@
 package com.ada.Bookshop.Infra.security;
 
-import com.ada.Bookshop.Infra.security.SecurityFilter;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -23,30 +22,24 @@ import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Autowired
-    SecurityFilter securityFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(
             HttpSecurity http,
-            HandlerMappingIntrospector introspector
-    ) throws Exception {
-
+            HandlerMappingIntrospector introspector) throws Exception {
         MvcRequestMatcher.Builder mvcMatcherBuilder = new MvcRequestMatcher.Builder(introspector);
         http.headers().frameOptions().disable();
-
         return http
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-//                .authorizeHttpRequests((requests) -> requests
-//                       .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET,"/")).permitAll()
-//                       .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/user")).permitAll()
-//                       .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/login")).permitAll()
-//                        .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/user")).hasRole("ADMIN")
-//                       .anyRequest().authenticated())
-//                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
+                .authorizeHttpRequests((requests) -> requests
+                        .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET,"/")).permitAll()
+                        .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/user")).permitAll()
+                        .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/login")).permitAll()
+                        .anyRequest().authenticated())
                 .build();
     }
+
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
